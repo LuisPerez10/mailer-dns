@@ -6,10 +6,18 @@ require_once $dir;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Transport\SendmailTransport;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+
+try {
 
 // Configurar el transporte SMTP
-$MAILER_DSN = 'smtp://2a964c6901a660:234d438549bc39@sandbox.smtp.mailtrap.io:2525';
-$transport = Transport::fromDsn($MAILER_DSN);
+// $MAILER_DSN = 'smtp://2a964c6901a660:234d438549bc39@sandbox.smtp.mailtrap.io:2525';
+// $transport = Transport::fromDsn($MAILER_DSN);
+
+// Configura el transporte Sendmail
+$transport = new SendmailTransport('/usr/sbin/sendmail -bs');
+
 $mailer = new Mailer($transport);
 
 // Crear el mensaje
@@ -24,3 +32,7 @@ $email = (new Email())
 $mailer->send($email);
 
 echo "Correo enviado con éxito!";
+
+} catch (TransportExceptionInterface $e) {
+    echo "Ha ocurrido un error al enviar el correo electrónico: " . $e->getMessage();
+}
