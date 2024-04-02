@@ -1,0 +1,14 @@
+# main.cf
+
+# General configuration
+myhostname = example.com
+mydomain = example.com
+
+# Relayhost configuration
+relayhost = [smtp.example.com]:587
+
+# SASL authentication configuration
+smtp_use_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous

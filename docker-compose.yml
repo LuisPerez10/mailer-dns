@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile  # Especifica el Dockerfile personalizado aquí
+    privileged: true
     volumes:
       - ./src:/var/www/html/public
     working_dir: /var/www/html/public
